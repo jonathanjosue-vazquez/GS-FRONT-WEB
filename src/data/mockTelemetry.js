@@ -1,142 +1,102 @@
+// Configuração da telemetria SIMULADA (Global Solution 2026.2).
+// Nada aqui é leitura real: os comportamentos em `sim` alimentam o simulador
+// (services/mockRepository.js) que imita o que os nós ESP32 enviariam.
+// Quando a API da equipe existir, este arquivo deixa de ser usado.
+//
+// Contrato interno de um nó (ajustar ao contrato real da equipe):
+//   id, code, name, location, zone, schematic{x,y}, attentionLevel,
+//   criticalLevel, reportIntervalSec, batteryPct, packetLossPct, localSignalling
 
-// Dados simulados para demonstração da Global Solution 2026.2 (FIAP)
-// Estrutura preparada para futura substituição por API REST ou Supabase
-
-export const nodesData = [
+export const SEED_NODES = [
   {
     id: 'ESP32-NODE-01',
     code: 'EST-01',
-    name: 'Rio Anhembi — Ponte Norte',
-    zone: 'Zona A (Margem Norte)',
-    coordinates: { x: 28, y: 35 }, // Posição percentual no mapa esquemático
-    level: 68.0,
-    warningLimit: 60,
-    criticalLimit: 80,
-    rate: 2.8,
-    trend: 'rising_fast',
-    status: 'online',
-    offlineModeReady: true,
-    ping: '24ms',
-    battery: '94%',
-    lastSync: 'há 4s',
-    series: [
-      { time: '12:00', level: 42, rate: 0.4 },
-      { time: '12:30', level: 44, rate: 0.5 },
-      { time: '13:00', level: 45, rate: 0.6 },
-      { time: '13:30', level: 48, rate: 1.1 },
-      { time: '14:00', level: 51, rate: 1.4 },
-      { time: '14:30', level: 55, rate: 1.9 },
-      { time: '15:00', level: 59, rate: 2.2 },
-      { time: '15:30', level: 63, rate: 2.5 },
-      { time: '16:00', level: 68, rate: 2.8 },
-    ],
+    name: 'Rio Tamanduateí',
+    location: 'Av. do Estado · Vila Prudente',
+    zone: 'Zona Sudeste — Bacia Tamanduateí',
+    schematic: { x: 24, y: 30 },
+    attentionLevel: 50,
+    criticalLevel: 80,
+    reportIntervalSec: 30,
+    batteryPct: 94,
+    packetLossPct: 2,
+    localSignalling: true,
+    sim: {
+      behavior: 'rising',
+      floor: 30, rise: 38, tau: 40, driftCmMin: 0.95,
+      pastBump: { amp: 22, centerMin: 600, widthMin: 50 },
+    },
   },
   {
     id: 'ESP32-NODE-02',
     code: 'EST-02',
-    name: 'Córrego Central — Galeria Leste',
-    zone: 'Zona B (Centro Comercial)',
-    coordinates: { x: 58, y: 52 },
-    level: 45.0,
-    warningLimit: 55,
-    criticalLimit: 75,
-    rate: 1.4,
-    trend: 'rising',
-    status: 'online',
-    offlineModeReady: true,
-    ping: '31ms',
-    battery: '88%',
-    lastSync: 'há 12s',
-    series: [
-      { time: '12:00', level: 30, rate: 0.2 },
-      { time: '12:30', level: 31, rate: 0.3 },
-      { time: '13:00', level: 33, rate: 0.5 },
-      { time: '13:30', level: 35, rate: 0.7 },
-      { time: '14:00', level: 37, rate: 0.9 },
-      { time: '14:30', level: 39, rate: 1.0 },
-      { time: '15:00', level: 41, rate: 1.2 },
-      { time: '15:30', level: 43, rate: 1.3 },
-      { time: '16:00', level: 45, rate: 1.4 },
-    ],
+    name: 'Rio Aricanduva',
+    location: 'Av. Aricanduva · Cidade Líder',
+    zone: 'Zona Leste — Bacia Aricanduva',
+    schematic: { x: 55, y: 50 },
+    attentionLevel: 55,
+    criticalLevel: 75,
+    reportIntervalSec: 30,
+    batteryPct: 88,
+    packetLossPct: 35,
+    localSignalling: true,
+    sim: {
+      behavior: 'lossy',
+      floor: 28, rise: 17, tau: 90, driftCmMin: 0.19, dropProbability: 0.35,
+      pastBump: { amp: 30, centerMin: 300, widthMin: 40 },
+    },
   },
   {
     id: 'ESP32-NODE-03',
     code: 'EST-03',
-    name: 'Canal Sul — Comporta 02',
-    zone: 'Zona C (Residencial Sul)',
-    coordinates: { x: 74, y: 76 },
-    level: null,
-    warningLimit: 65,
-    criticalLimit: 90,
-    rate: 0.0,
-    trend: 'unknown',
-    status: 'offline',
-    offlineModeReady: true,
-    ping: '--',
-    battery: 'Sem telemetria',
-    lastSync: 'há 45m',
-    series: [
-      { time: '12:00', level: 38, rate: 0.1 },
-      { time: '13:00', level: 39, rate: 0.2 },
-      { time: '14:00', level: 40, rate: 0.2 },
-      { time: '15:00', level: 41, rate: 0.3 },
-    ],
+    name: 'Córrego Pirajuçara',
+    location: 'Av. Eliseu de Almeida · Butantã',
+    zone: 'Zona Oeste — Bacia Pinheiros',
+    schematic: { x: 78, y: 78 },
+    attentionLevel: 65,
+    criticalLevel: 90,
+    reportIntervalSec: 30,
+    batteryPct: 41,
+    packetLossPct: null,
+    localSignalling: true,
+    sim: { behavior: 'offline', floor: 36, rise: 5, tau: 200, lastSeenMinAgo: 47 },
   },
-];
+  {
+    id: 'ESP32-NODE-04',
+    code: 'EST-04',
+    name: 'Rio Tietê',
+    location: 'Ponte das Bandeiras · Marginal',
+    zone: 'Zona Norte — Calha Central',
+    schematic: { x: 38, y: 78 },
+    attentionLevel: 45,
+    criticalLevel: 70,
+    reportIntervalSec: 30,
+    batteryPct: 76,
+    packetLossPct: 4,
+    localSignalling: true,
+    sim: { behavior: 'sensor_fault', floor: 22, rise: 3, tau: 120, lastSeenMinAgo: 40 },
+  },
+]
 
-export const alertsData = [
-  {
-    id: 'ALT-094',
-    nodeId: 'ESP32-NODE-01',
-    station: 'EST-01 // Rio Anhembi (Ponte Norte)',
-    severity: 'ALTO',
-    rate: '+2.8 cm/min',
-    currentLevel: '68.0 cm',
-    timestamp: '16:00:12',
-    status: 'ATIVO',
-    guidance: [
-      'Evite transitar ou estacionar na via marginal do Rio Anhembi.',
-      'Moradores da Zona A devem elevar móveis e desligar disjuntores baixos caso a água avance.',
-      'Acompanhe a sinalização sonora/visual local (torre ESP32) caso a rede móvel oscile.',
-    ],
-  },
-  {
-    id: 'ALT-093',
-    nodeId: 'ESP32-NODE-02',
-    station: 'EST-02 // Córrego Central',
-    severity: 'MODERADO',
-    rate: '+1.4 cm/min',
-    currentLevel: '45.0 cm',
-    timestamp: '15:42:05',
-    status: 'ATIVO',
-    guidance: [
-      'Atenção redobrada em pontos de drenagem próximos à Galeria Leste.',
-      'Não tente atravessar ruas com lâmina d’água acima do meio-fio.',
-    ],
-  },
-  {
-    id: 'ALT-092',
-    nodeId: 'ESP32-NODE-03',
-    station: 'EST-03 // Canal Sul (Comporta 02)',
-    severity: 'FALHA TÉCNICA',
-    rate: 'Sem leitura',
-    currentLevel: '--',
-    timestamp: '15:15:00',
-    status: 'MANUTENÇÃO',
-    guidance: [
-      'Perda de pacote detectada há 45 minutos. Operação local (LED/Buzzer) permanece autônoma.',
-      'Equipe técnica notificada para verificação de alimentação e módulo Wi-Fi.',
-    ],
-  },
-];
+// Posições esquemáticas (simuladas) para nós cadastrados na interface.
+export const SCHEMATIC_SLOTS = [
+  { x: 14, y: 62 }, { x: 64, y: 22 }, { x: 88, y: 46 }, { x: 52, y: 90 },
+  { x: 10, y: 88 }, { x: 90, y: 12 },
+]
 
-export const historicalLogs = [
-  { id: 'LOG-108', time: '16:00', station: 'EST-01', level: '68.0 cm', rate: '+2.8 cm/min', condition: 'Risco Elevado' },
-  { id: 'LOG-107', time: '16:00', station: 'EST-02', level: '45.0 cm', rate: '+1.4 cm/min', condition: 'Atenção' },
-  { id: 'LOG-106', time: '15:30', station: 'EST-01', level: '63.0 cm', rate: '+2.5 cm/min', condition: 'Risco Elevado' },
-  { id: 'LOG-105', time: '15:30', station: 'EST-02', level: '43.0 cm', rate: '+1.3 cm/min', condition: 'Atenção' },
-  { id: 'LOG-104', time: '15:15', station: 'EST-03', level: '--', rate: '--', condition: 'Perda de Sinal' },
-  { id: 'LOG-103', time: '15:00', station: 'EST-01', level: '59.0 cm', rate: '+2.2 cm/min', condition: 'Atenção' },
-  { id: 'LOG-102', time: '14:30', station: 'EST-01', level: '55.0 cm', rate: '+1.9 cm/min', condition: 'Normal' },
-  { id: 'LOG-101', time: '14:00', station: 'EST-02', level: '37.0 cm', rate: '+0.9 cm/min', condition: 'Normal' },
-];
+// Episódios anteriores já encerrados. Os horários são relativos ao início da
+// simulação e coerentes com os picos gerados em `pastBump` acima.
+export const SEED_PAST_ALERTS = [
+  {
+    id: 'ALT-091', nodeId: 'ESP32-NODE-02', category: 'risk', severity: 'moderate',
+    title: 'Risco moderado no ponto',
+    reason: 'Nível ultrapassou a cota de atenção e voltou ao normal em seguida.',
+    startedMinAgo: 314, resolvedMinAgo: 286,
+  },
+  {
+    id: 'ALT-090', nodeId: 'ESP32-NODE-01', category: 'risk', severity: 'moderate',
+    title: 'Risco moderado no ponto',
+    reason: 'Nível ultrapassou a cota de atenção e voltou ao normal em seguida.',
+    startedMinAgo: 615, resolvedMinAgo: 585,
+  },
+]
