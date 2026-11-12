@@ -1,5 +1,39 @@
-
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Inversão estratégica para Tema Claro Hidrológico (Branco + Azul Gelo) */
+  --color-zinc-950: #f8fafc; /* Fundo principal da página (Gelo suave) */
+  --color-zinc-900: #ffffff; /* Superfície dos cards e painéis (Branco puro) */
+  --color-zinc-800: #e2e8f0; /* Bordas finas e divisórias */
+  --color-zinc-700: #cbd5e1; /* Bordas de inputs e botões */
+  --color-zinc-600: #94a3b8; /* Ícones secundários */
+  --color-zinc-500: #64748b; /* Labels e subtítulos */
+  --color-zinc-400: #475569; /* Textos de apoio */
+  --color-zinc-300: #334155; /* Textos secundários */
+  --color-zinc-200: #1e293b; /* Títulos de seção */
+  --color-zinc-100: #0f172a; /* Texto principal e KPIs (Azul Marinho Profundo) */
+
+  /* Substituição do verde neon por Azul Hidrológico / Água */
+  --color-emerald-950: #f0f9ff;
+  --color-emerald-900: #e0f2fe;
+  --color-emerald-500: #0284c7;
+  --color-emerald-400: #0369a1;
+  --color-emerald-300: #0284c7;
+
+  /* Ajuste dos tons de alerta para terem leitura perfeita no fundo branco */
+  --color-amber-500: #d97706;
+  --color-amber-400: #b45309;
+  --color-rose-500: #e11d48;
+  --color-rose-400: #be123c;
+}
+
+:root {
+  color-scheme: light;
+}
 
 * {
   box-sizing: border-box;
@@ -8,6 +42,19 @@
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid #0284c7;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
