@@ -2,7 +2,7 @@
 
 Projeto da **Global Solution 2026.2 — FIAP (Engenharia de Software, 1º ano)**, desafio **CitizenTech**.
 
-> **Ficha da CitizenTech** — *(completar com a equipe)*
+> **Ficha da CitizenTech** — *(Hello World Corporation: Nicolas Prestelo, Jonathan Josué, Murillo Serrano)*
 > Nome: PrevIA Hydro · Cidade e bairro: … · Cidadão beneficiado: … · Problema em uma frase: … ·
 > Indicador de impacto: … · ODS conectados: … (ex.: 11 e 13)
 
