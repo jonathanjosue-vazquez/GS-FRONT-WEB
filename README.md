@@ -1,16 +1,24 @@
-# React + Vite
+# PrevIA Hydro — Plataforma de Monitoramento Hidrológico e Prevenção
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Projeto desenvolvido para a **Global Solution 2026.2 — Engenharia de Software (FIAP)**.
 
-Currently, two official plugins are available:
+O **PrevIA Hydro** é uma plataforma web integrada a sensores IoT voltada ao monitoramento contínuo do nível da água em áreas urbanas vulneráveis a alagamentos e enchentes. Em vez de atuar apenas de forma reativa quando o transbordamento já ocorreu, o sistema calcula a **taxa de elevação (cm/min)**, identifica tendências de risco e emite alertas preventivos com orientações práticas para a população e equipes locais.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Principais Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Monitoramento em Tempo Real:** Acompanhamento da cota atual da água em múltiplos pontos estratégicos da bacia urbana.
+- **Análise de Velocidade e Tendência:** Cálculo da velocidade de subida do nível da água e estimativa de tempo até atingir a cota crítica de transbordamento.
+- **Operação Offline Resiliente (Edge):** Os nós baseados em ESP32 contam com sinalização local via LEDs e buzzer para alertar moradores próximos mesmo em caso de queda de energia ou perda de conexão com a internet.
+- **Diagnóstico de Integridade:** Detecção automática de sensores desconectados, perda de pacotes ou leituras desatualizadas.
+- **Central de Protocolos e Alertas:** Exibição de nível de risco acompanhado de recomendações objetivas de segurança.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Arquitetura do Sistema
+
+O fluxo de dados do projeto foi estruturado em quatro camadas:
+
+```text
+[Sensores + ESP32] ──▶ [Processamento Python] ──▶ [API / Banco de Dados] ──▶ [Dashboard Web React]
